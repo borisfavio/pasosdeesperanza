@@ -46,11 +46,11 @@
                         'Escribe tu código de referencia en el concepto o glosa.',
                     ],
                     'datos' => [
-                        'Banco'          => 'REEMPLAZA: nombre del banco',
-                        'Tipo de cuenta' => 'REEMPLAZA: Caja de ahorro / Cuenta corriente',
-                        'N.º de cuenta'  => 'REEMPLAZA: número de cuenta en Bs',
+                        'Banco'          => 'Banco de Credito de Bolivia (BCP)',
+                        'Tipo de cuenta' => 'Cuenta corriente',
+                        'N.º de cuenta'  => '201-5104585-3-96',
                         'Titular'        => 'Fundación Pasos de Esperanza',
-                        'NIT'            => 'REEMPLAZA: NIT de la fundación',
+                        'NIT'            => '408152026',
                     ],
                 ],
                 [
@@ -301,7 +301,11 @@
                                                 <div class="grid gap-6 {{ $m['qr'] ? 'md:grid-cols-[13rem_1fr]' : '' }}">
                                                     @if ($m['qr'])
                                                         <div class="mx-auto w-52 shrink-0 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-[#d8e8e9]">
-                                                            <img src="{{ asset($m['qr']) }}" alt="Código QR para donar a Fundación Pasos de Esperanza" class="h-auto w-full">
+                                                            <button type="button" data-qr-open aria-label="Ampliar código QR para donar"
+                                                                    class="block w-full cursor-zoom-in rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f1d36e]">
+                                                                <img src="{{ asset($m['qr']) }}" alt="Código QR para donar a Fundación Pasos de Esperanza" class="h-auto w-full">
+                                                            </button>
+                                                            <p class="mt-2 text-center text-[11px] text-[#617980]">Haz clic para ampliar</p>
                                                             <p class="mt-2 text-center text-[11px] font-bold text-[#617980]">Fundación Pasos de Esperanza</p>
                                                         </div>
                                                     @endif
@@ -395,6 +399,15 @@
                         </aside>
                     </div>
                 </form>
+                <dialog data-qr-dialog class="w-[min(90vw,42rem)] max-w-none rounded-2xl bg-white p-4 shadow-2xl backdrop:bg-black/75">
+                    <div class="flex items-center justify-between gap-4">
+                        <p class="text-sm font-bold text-[#2e5a63]">Código QR para donar</p>
+                        <button type="button" data-qr-close aria-label="Cerrar imagen ampliada"
+                                class="rounded-full px-3 py-1 text-xl font-bold leading-none text-[#2e5a63] hover:bg-[#eef7f7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f1d36e]">×</button>
+                    </div>
+                    <img data-qr-large alt="Código QR para donar a Fundación Pasos de Esperanza"
+                         class="mx-auto mt-3 max-h-[80vh] w-auto max-w-full object-contain">
+                </dialog>
             @endif
         </div>
     </section>
@@ -422,6 +435,8 @@
 
             const montoInput = $('#monto');
             const btn = $('#btn-enviar');
+            const qrDialog = $('[data-qr-dialog]');
+            const qrLarge = $('[data-qr-large]');
             const fmt = (n) => n.toLocaleString('es-BO', { maximumFractionDigits: 2 });
 
             // Código de referencia
@@ -509,6 +524,15 @@
                 update();
             }));
             $$('[data-metodo]').forEach((b) => b.addEventListener('click', () => setMetodo(b)));
+            $$('[data-qr-open]').forEach((b) => b.addEventListener('click', () => {
+                const img = b.querySelector('img');
+                qrLarge.src = img.src;
+                qrDialog.showModal();
+            }));
+            $('[data-qr-close]').addEventListener('click', () => qrDialog.close());
+            qrDialog.addEventListener('click', (e) => {
+                if (e.target === qrDialog) qrDialog.close();
+            });
 
             programas().forEach((c) => c.addEventListener('change', () => {
                 const general = programas().find((p) => p.dataset.programa === 'general');

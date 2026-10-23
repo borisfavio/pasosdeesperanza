@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.ico') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Fundación Pasos de Esperanza')</title>
@@ -22,8 +23,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { top: 0 !important; }
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        #google_translate_element { position: absolute; left: -10000px; top: 0; }
     </style>
     <script type="application/ld+json">
         {!! json_encode([
@@ -57,11 +62,67 @@
     <!-- Pie de Página Modular -->
     @include('partials.footer')
 
+    <div id="google_translate_element" aria-hidden="true"></div>
+    <script>
+        window.googleTranslateElementInit = function () {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'en,es,fr,pt',
+                autoDisplay: false
+            }, 'google_translate_element');
+
+            const languageSelect = document.querySelector('[data-language-select]');
+            const observer = new MutationObserver(function () {
+                const translateSelect = document.querySelector('.goog-te-combo');
+
+                if (!translateSelect) return;
+
+                const cookie = document.cookie.split('; ').find(function (item) {
+                    return item.indexOf('googtrans=') === 0;
+                });
+                const translatedLanguage = cookie ? cookie.split('/').pop() : 'es';
+
+                languageSelect.value = ['en', 'fr', 'pt'].includes(translatedLanguage) ? translatedLanguage : 'es';
+                languageSelect.disabled = false;
+
+                languageSelect.addEventListener('change', function () {
+                    const selectedLanguage = this.value;
+                    translateSelect.value = selectedLanguage === 'es' ? '' : selectedLanguage;
+                    translateSelect.dispatchEvent(new Event('change'));
+                    document.documentElement.lang = selectedLanguage;
+
+                    if (selectedLanguage === 'es') {
+                        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+                    }
+                });
+
+                observer.disconnect();
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
+        };
+
+        window.googleTranslateLoadError = function () {
+            const status = document.querySelector('[data-language-status]');
+            status.textContent = 'No se pudo cargar el servicio de traducción. Inténtalo de nuevo más tarde.';
+        };
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async onerror="googleTranslateLoadError()"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.querySelector('[data-navbar]');
             const menuToggle = document.querySelector('[data-menu-toggle]');
             const mobileMenu = document.querySelector('[data-mobile-menu]');
+            const menuOpenIcon = document.querySelector('[data-menu-open-icon]');
+            const menuCloseIcon = document.querySelector('[data-menu-close-icon]');
+
+            const setMobileMenuState = function (isOpen) {
+                mobileMenu.classList.toggle('hidden', !isOpen);
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+                menuOpenIcon.classList.toggle('hidden', isOpen);
+                menuCloseIcon.classList.toggle('hidden', !isOpen);
+            };
 
             const setNavbarState = () => {
                 if (!navbar) return;
@@ -77,8 +138,22 @@
 
             if (menuToggle && mobileMenu) {
                 menuToggle.addEventListener('click', function () {
-                    const isOpen = !mobileMenu.classList.toggle('hidden');
-                    this.setAttribute('aria-expanded', isOpen);
+                    setMobileMenuState(mobileMenu.classList.contains('hidden'));
+                });
+
+                mobileMenu.addEventListener('click', function (event) {
+                    if (event.target instanceof Element && event.target.closest('a')) setMobileMenuState(false);
+                });
+
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                        setMobileMenuState(false);
+                        menuToggle.focus();
+                    }
+                });
+
+                window.matchMedia('(min-width: 1024px)').addEventListener('change', function (event) {
+                    if (event.matches) setMobileMenuState(false);
                 });
             }
 

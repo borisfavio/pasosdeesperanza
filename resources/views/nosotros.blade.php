@@ -10,7 +10,7 @@
             <div class="max-w-3xl">
                 <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8aa64e]">Quiénes somos</p>
                 <h1 class="mt-3 text-4xl font-extrabold tracking-tight text-[#2e5a63] sm:text-5xl">Caminamos junto a niños y familias para abrir nuevas oportunidades.</h1>
-                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-[#56737b]">Somos una fundación en La Paz que trabaja desde la cercanía, el aprendizaje y la comunidad para acompañar a cada niño en su crecimiento.</p>
+                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-[#56737b]">Somos una fundación en La Paz Bolivia, que trabaja desde la cercanía, el aprendizaje y la comunidad para acompañar a cada niño en su crecimiento.</p>
                 <a href="#mision-vision" class="mt-8 inline-flex rounded-full bg-[#2e5a63] px-6 py-3 text-sm font-extrabold text-white transition hover:bg-[#3f7079]">Conoce nuestro propósito <span class="ml-2" aria-hidden="true">↓</span></a>
             </div>
         </div>
@@ -26,12 +26,12 @@
                 <article class="rounded-[1.75rem] border border-[#d8e8e9] bg-[#f4faf9] p-7 sm:p-9">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-2xl" aria-hidden="true">🤝</div>
                     <h3 class="mt-6 text-2xl font-extrabold text-[#2e5a63]">Misión</h3>
-                    <p class="mt-4 leading-relaxed text-[#617980]">Acompañar a niños y familias de La Paz mediante apoyo pedagógico, orientación familiar y espacios seguros de encuentro, fortaleciendo sus capacidades y creando oportunidades para su bienestar y desarrollo.</p>
+                    <p class="mt-4 leading-relaxed text-[#617980]">Somos una fundación sin fines de lucro que coadyuva en el desarrollo integral de niños, jóvenes y familias en situación de vulnerabilidad, contribuyendo al bienestar de la sociedad a través de programas y proyectos.</p>
                 </article>
                 <article class="rounded-[1.75rem] border border-[#eadfb8] bg-[#fff9ee] p-7 sm:p-9">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-2xl" aria-hidden="true">🌱</div>
                     <h3 class="mt-6 text-2xl font-extrabold text-[#2e5a63]">Visión</h3>
-                    <p class="mt-4 leading-relaxed text-[#617980]">Ser una comunidad comprometida donde cada niño pueda aprender, crecer y construir su futuro con esperanza, y donde las familias encuentren una red cercana de apoyo y colaboración.</p>
+                    <p class="mt-4 leading-relaxed text-[#617980]">Al 2031, la Fundación Pasos de Esperanza es una fundación comprometida con la restauración de relaciones familiares y el desarrollo de potencialidades de niños y jóvenes, para que sean agentes de cambio en su contexto; además, mediante la movilización de fondos internos y externos, sostiene sus propios programas y proyectos.</p>
                 </article>
             </div>
             <p class="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-[#7b9297]">Estas declaraciones expresan el propósito de trabajo de la Fundación Pasos de Esperanza.</p>
