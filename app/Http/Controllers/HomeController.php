@@ -2,26 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class HomeController extends Controller
 {
-public function index()
-{
-    $heroImages = [
-        asset('images/hero1.jpg'),
-        asset('images/hero2.jpg'),
-        asset('images/hero3.jpg'),
-    ];
+    public function index()
+    {
+        $heroImages = [
+            asset('images/hero1.jpg'),
+            asset('images/hero2.jpg'),
+            asset('images/hero3.jpg'),
+        ];
 
-    $stats = [
-        ['label' => 'Niños acompañados', 'value' => '631', 'suffix' => '+'],
-        ['label' => 'Familias beneficiadas', 'value' => '500', 'suffix' => ''],
-        ['label' => 'Talleres educativos', 'value' => '15', 'suffix' => ''],
-    ];
+        $hasContentTables = Schema::hasTable('programs') && Schema::hasTable('activities');
+        $programs = $hasContentTables ? Program::where('is_active', true)->latest()->get() : collect();
+        $activities = $hasContentTables ? Activity::where('is_published', true)->latest('published_at')->take(3)->get() : collect();
+        $stats = [
+            ['label' => 'Programas activos', 'value' => (string) $programs->count(), 'suffix' => ''],
+            ['label' => 'Actividades publicadas', 'value' => (string) $activities->count(), 'suffix' => ''],
+            ['label' => 'Años construyendo comunidad', 'value' => '10', 'suffix' => '+'],
+        ];
 
-    return view('landing', compact('heroImages', 'stats'));
-}
+        return view('landing', compact('heroImages', 'stats', 'programs', 'activities'));
+    }
 
     public function nosotros()
     {

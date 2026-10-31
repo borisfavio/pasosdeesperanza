@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Administración Pasos de Esperanza',
+            'email' => env('ADMIN_EMAIL', 'admin@pasosdeesperanza.org'),
+            'password' => env('ADMIN_PASSWORD', 'cambia-esta-clave'),
+            'role' => 'admin',
         ]);
     }
 }

@@ -142,21 +142,15 @@
                 <p class="mt-4 leading-relaxed text-[#617980]">Convertimos necesidades concretas en acompañamiento constante, cercano y humano.</p>
             </div>
             <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-                <article class="border border-[#d8e8e9] bg-white p-7 shadow-sm">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef7f7] text-xl">📚</div>
-                    <h3 class="mt-5 text-xl font-extrabold text-[#2e5a63]">Refuerzo escolar</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-[#617980]">Apoyo pedagógico para fortalecer la lectura, el aprendizaje y la autonomía en las tareas.</p>
-                </article>
-                <article class="border border-[#d8e8e9] bg-white p-7 shadow-sm">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#fff8e8] text-xl">🚌</div>
-                    <h3 class="mt-5 text-xl font-extrabold text-[#2e5a63]">Soporte y transporte</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-[#617980]">Coordinamos soluciones de movilidad para que cada estudiante llegue seguro a sus actividades.</p>
-                </article>
-                <article class="border border-[#d8e8e9] bg-white p-7 shadow-sm">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f2f8e9] text-xl">🌱</div>
-                    <h3 class="mt-5 text-xl font-extrabold text-[#2e5a63]">Acompañamiento familiar</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-[#617980]">Talleres y espacios de encuentro que fortalecen los vínculos y las herramientas de cada familia.</p>
-                </article>
+                @forelse ($programs as $program)
+                    <article class="border border-[#d8e8e9] bg-white p-7 shadow-sm">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef7f7] text-xl">{{ $program->icon ?: '🌱' }}</div>
+                        <h3 class="mt-5 text-xl font-extrabold text-[#2e5a63]">{{ $program->name }}</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-[#617980]">{{ $program->description }}</p>
+                    </article>
+                @empty
+                    <p class="text-[#617980] md:col-span-3">Estamos preparando nuestros programas. Pronto encontrarás más información.</p>
+                @endforelse
             </div>
         </div>
     </section>

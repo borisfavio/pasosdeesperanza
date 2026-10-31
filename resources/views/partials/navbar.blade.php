@@ -69,6 +69,7 @@
                     </div>
                 </div>
                 <a href="{{ route('home') }}#impacto" class="flex h-full items-center border-b-[3px] border-transparent px-3 transition hover:text-[#1d7d8c]">Impacto</a>
+                <a href="{{ route('actividades.index') }}" class="flex h-full items-center border-b-[3px] px-3 transition hover:text-[#1d7d8c] {{ request()->routeIs('actividades.*') ? 'border-[#f1d36e]' : 'border-transparent' }}">Actividades</a>
                 <a href="{{ route('contacto') }}" class="flex h-full items-center border-b-[3px] px-3 transition hover:text-[#1d7d8c] {{ request()->routeIs('contacto') ? 'border-[#f1d36e]' : 'border-transparent' }}">Contáctanos</a>
             </div>
 
@@ -100,6 +101,7 @@
                     </div>
                 </details>
                 <a href="{{ route('home') }}#impacto" class="rounded-lg px-3 py-2.5 hover:bg-[#eef6f5]">Impacto</a>
+                <a href="{{ route('actividades.index') }}" class="rounded-lg px-3 py-2.5 hover:bg-[#eef6f5]">Actividades</a>
                 <a href="{{ route('contacto') }}" class="rounded-lg px-3 py-2.5 hover:bg-[#eef6f5]">Contáctanos</a>
                 <a href="{{ route('donaciones') }}" class="mt-2 rounded-full bg-[#f1d36e] px-3 py-3 text-center font-extrabold text-[#2e5a63]">Donar ❤️</a>
             </div>
